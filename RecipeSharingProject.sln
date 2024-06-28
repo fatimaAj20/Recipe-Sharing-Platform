@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Infrastructure", "RecipeSharingProject.Infrastructure\RecipeSharingProject.Infrastructure.csproj", "{07A5F763-78F9-42CA-9362-5F40B4BA04F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Business", "RecipeSharingProject.Business\RecipeSharingProject.Business.csproj", "{6ABC95DE-265D-491D-9AEA-385895F5E301}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{07A5F763-78F9-42CA-9362-5F40B4BA04F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07A5F763-78F9-42CA-9362-5F40B4BA04F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07A5F763-78F9-42CA-9362-5F40B4BA04F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABC95DE-265D-491D-9AEA-385895F5E301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABC95DE-265D-491D-9AEA-385895F5E301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABC95DE-265D-491D-9AEA-385895F5E301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABC95DE-265D-491D-9AEA-385895F5E301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
