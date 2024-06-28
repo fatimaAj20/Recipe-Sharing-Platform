@@ -5,11 +5,9 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.API", "RecipeSharingProject.API\RecipeSharingProject.API.csproj", "{BD4D6C0E-4E8D-4741-AFB5-7A4331342148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Common", "RecipeSharingProject.Common\RecipeSharingProject.Common.csproj", "{C94678ED-540D-4F24-BE8B-44B6DD1ABAE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Common", "RecipeSharingProject.Common\RecipeSharingProject.Common.csproj", "{C94678ED-540D-4F24-BE8B-44B6DD1ABAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Business", "RecipeSharingProject.Business\RecipeSharingProject.Business.csproj", "{7764551D-1127-4DDC-A304-29DA4CD535D2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Infrastructure", "RecipeSharingProject.Infrastructure\RecipeSharingProject.Infrastructure.csproj", "{07A5F763-78F9-42CA-9362-5F40B4BA04F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Infrastructure", "RecipeSharingProject.Infrastructure\RecipeSharingProject.Infrastructure.csproj", "{07A5F763-78F9-42CA-9362-5F40B4BA04F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{C94678ED-540D-4F24-BE8B-44B6DD1ABAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C94678ED-540D-4F24-BE8B-44B6DD1ABAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C94678ED-540D-4F24-BE8B-44B6DD1ABAE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7764551D-1127-4DDC-A304-29DA4CD535D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7764551D-1127-4DDC-A304-29DA4CD535D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7764551D-1127-4DDC-A304-29DA4CD535D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7764551D-1127-4DDC-A304-29DA4CD535D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07A5F763-78F9-42CA-9362-5F40B4BA04F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07A5F763-78F9-42CA-9362-5F40B4BA04F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07A5F763-78F9-42CA-9362-5F40B4BA04F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
