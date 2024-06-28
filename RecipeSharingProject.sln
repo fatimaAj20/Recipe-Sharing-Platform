@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.API", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Common", "RecipeSharingProject.Common\RecipeSharingProject.Common.csproj", "{C94678ED-540D-4F24-BE8B-44B6DD1ABAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Business", "REcipeSharingProject.Business\RecipeSharingProject.Business.csproj", "{7764551D-1127-4DDC-A304-29DA4CD535D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Business", "RecipeSharingProject.Business\RecipeSharingProject.Business.csproj", "{7764551D-1127-4DDC-A304-29DA4CD535D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Infrastructure", "RecipeSharingProject.Infrastructure\RecipeSharingProject.Infrastructure.csproj", "{07A5F763-78F9-42CA-9362-5F40B4BA04F4}"
 EndProject
