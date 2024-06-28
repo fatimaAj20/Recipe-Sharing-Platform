@@ -1,4 +1,5 @@
 ﻿using RecipeSharingProject.Common.Dtos;
+using RecipeSharingProject.Common.Dtos.Recipe;
 
 namespace RecipeSharingProject.Common.Interfaces;
 

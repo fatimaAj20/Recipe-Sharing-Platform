@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RecipeSharingProject.Business\RecipeSharingProject.Business.csproj" />
+    <ProjectReference Include="..\RecipeSharingProject.Common\RecipeSharingProject.Common.csproj" />
     <ProjectReference Include="..\RecipeSharingProject.Infrastructure\RecipeSharingProject.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RecipeSharingProject.Common\RecipeSharingProject.Common.csproj" />
+    <ProjectReference Include="..\RecipeSharingProject.Infrastructure\RecipeSharingProject.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
