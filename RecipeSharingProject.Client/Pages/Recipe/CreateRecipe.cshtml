@@ -1,0 +1,25 @@
+﻿@page
+@model RecipeSharingProject.Client.Pages.Recipe.RecipeModel
+@{
+}
+
+<h2>Create Recipe</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Recipe.Name"></label>
+        <input asp-for="Recipe.Name" class="form-control" />
+    </div>
+   
+    <div class="form-group">
+        <label asp-for="Recipe.Ingredients"></label>
+        <input asp-for="Recipe.Ingredients" class="form-control" />
+        <small class="form-text text-muted">Enter ingredients separated by commas</small>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.Steps"></label>
+        <input asp-for="Recipe.Steps" class="form-control" />
+        <small class="form-text text-muted">Enter steps separated by commas</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

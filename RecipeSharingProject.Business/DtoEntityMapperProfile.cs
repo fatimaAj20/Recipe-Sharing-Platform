@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RecipeSharingProject.Common.Dtos;
 using RecipeSharingProject.Common.Dtos.Recipe;
 using RecipeSharingProject.Common.Model;
 

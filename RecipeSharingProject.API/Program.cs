@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RecipeSharingProject.API;
 using RecipeSharingProject.Business;
 using RecipeSharingProject.Common.Interfaces;
@@ -9,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 DIConfiguration.RegisterService(builder.Services);
-builder.Services.AddDbContext<ApplicationDbContext>();
+var dbFileName = Environment.GetEnvironmentVariable("DB_FILENAME");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite($"Filename={dbFileName}"));
 builder.Services.AddScoped<IGenericRepository<Recipe>, GenericRepository<Recipe>>();
 
 builder.Services.AddControllers();

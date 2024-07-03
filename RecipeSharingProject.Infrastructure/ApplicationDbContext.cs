@@ -19,7 +19,6 @@ public class ApplicationDbContext:IdentityDbContext<IdentityUser, IdentityRole, 
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Filename=RecipeSharingProject.db");
         base.OnConfiguring(optionsBuilder);
     }
     protected override void OnModelCreating(ModelBuilder builder)
