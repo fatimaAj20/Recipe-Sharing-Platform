@@ -4,14 +4,16 @@ using RecipeSharingProject.Business;
 using RecipeSharingProject.Common.Interfaces;
 using RecipeSharingProject.Common.Model;
 using RecipeSharingProject.Infrastructure;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 DIConfiguration.RegisterService(builder.Services);
-var dbFileName = Environment.GetEnvironmentVariable("DB_FILENAME");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite($"Filename={dbFileName}"));
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<IGenericRepository<Recipe>, GenericRepository<Recipe>>();
 
 builder.Services.AddControllers();

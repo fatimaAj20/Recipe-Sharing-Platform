@@ -1,12 +1,37 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    // ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome @Model.Recipes[4].Name </h1>
+    <h1 class="display-4">Welcome To Recipes Platform </h1>
 
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <form method="get">
+        <div class="form-group">
+            <label for="filterName">Search</label>
+            <input type="text" id="filterName" name="filter.Name" value="@Model.filter.Name" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    @if (Model.Recipes != null && Model.Recipes.Any())
+    {
+        <h3>Search Results</h3>
+        <ul>
+            @foreach (var recipe in Model.Recipes)
+            {
+                <li>
+                    <a asp-page ="/Recipe/RecipeDetails" asp-route-id="@recipe.Id">@recipe.Name</a>
+                </li>
+            }
+        </ul>
+    }
+    else if (Model.Recipes != null)
+    {
+        <p>No results found.</p>
+    }
 
 </div>

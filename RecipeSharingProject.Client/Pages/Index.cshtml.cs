@@ -13,15 +13,19 @@ namespace RecipeSharingProject.Client.Pages
         private RecipeClient client;
         public List<RecipeList> Recipes;
 
+        [BindProperty(SupportsGet = true)]
+        public RecipeFilter filter { get; set; }
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
             client = new RecipeClient();
+            filter = new RecipeFilter(null, null, null);
         }
 
         public async Task OnGetAsync()
         {
-            this.Recipes = await client.GetRecipesAsync();
+            this.Recipes = await client.GetRecipesAsync(filter);
         }
     }
 }

@@ -24,14 +24,16 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7140;http://localhost:5277",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "BASE_URL": "https://localhost:7134",
+        "SUBSCRIPTION_KEY": "Secret"
       }
     },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
   }

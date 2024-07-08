@@ -11,6 +11,7 @@ namespace RecipeSharingProject.Client.Pages.Recipe
         private RecipeClient client;
         [BindProperty]
         public RecipeCreate Recipe { get; set; }
+        
 
         public RecipeModel(ILogger<RecipeModel> logger)
         {

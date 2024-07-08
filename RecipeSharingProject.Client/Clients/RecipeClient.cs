@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RecipeSharingProject.Common.Dtos;
 using RecipeSharingProject.Common.Dtos.Recipe;
 using System.Text;
 
@@ -9,9 +10,34 @@ namespace RecipeSharingProject.Client.Clients
         private string controllerName = "recipe";
         public RecipeClient() { }
 
-        public async Task<List<RecipeList>> GetRecipesAsync()
+        public async Task<List<RecipeList>> GetRecipesAsync(RecipeFilter? filter)
         {
             string url = $"{baseUrl}/{controllerName}/get";
+
+            if (filter != null)
+            {
+                List<string> queryParams = new List<string>();
+
+                if (!string.IsNullOrEmpty(filter.Name))
+                {
+                    queryParams.Add($"name={filter.Name}");
+                }
+                if (filter.Take != null && filter.Take > 0)
+                {
+                    queryParams.Add($"take={filter.Take}");
+                }
+                if (filter.Skip != null && filter.Skip > 0)
+                {
+                    queryParams.Add($"skip={filter.Skip}");
+                }
+
+                if (queryParams.Count > 0)
+                {
+                    url += "?" + string.Join("&", queryParams);
+                }
+            }
+
+            Console.WriteLine($"{url}");
             List<RecipeList> recipes = new List<RecipeList>();
             try
             {
@@ -27,12 +53,14 @@ namespace RecipeSharingProject.Client.Clients
                 }
                 else
                 {
-
+                    Console.WriteLine($"statusCode : {response.StatusCode}");
                     // Log status code
                 }
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
+
+                Console.WriteLine($"{e}");
                 // Log exception
             }
 
@@ -67,6 +95,37 @@ namespace RecipeSharingProject.Client.Clients
                 // Log exception
             }
 
+        }
+
+        public async Task<RecipeDetails> GetRecipeByIdAsync(int id)
+        {
+            string url = $"{baseUrl}/{controllerName}/get/{id}";
+            Console.WriteLine($"{url}");
+            try
+            {
+                // Send the GET request
+                HttpResponseMessage response = await this.httpClient.GetAsync(url);
+
+                // Check if the request was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    // Read the response content as a string
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<RecipeDetails>(responseBody);
+                }
+                else
+                {
+                    Console.WriteLine($"statusCode : {response.StatusCode}");
+                    // Log status code
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e}");
+                // Log exception
+            }
+
+            return null ;
         }
     }
 }

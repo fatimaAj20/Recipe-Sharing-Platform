@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Business", "RecipeSharingProject.Business\RecipeSharingProject.Business.csproj", "{6ABC95DE-265D-491D-9AEA-385895F5E301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeSharingProject.Client", "RecipeSharingProject.Client\RecipeSharingProject.Client.csproj", "{E478A7C4-FE12-4F35-B8A9-E15E387F82F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSharingProject.Client", "RecipeSharingProject.Client\RecipeSharingProject.Client.csproj", "{E478A7C4-FE12-4F35-B8A9-E15E387F82F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

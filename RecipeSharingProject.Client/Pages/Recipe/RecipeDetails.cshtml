@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model RecipeSharingProject.Client.Pages.Recipe.RecipeDetailsModel
+@{
+    ViewData["Title"] = "Recipe Details";
+}
+
+<h2>@Model.Recipe.Name</h2>
+<h3>Ingredients</h3>
+<ul>
+    @foreach (var ingredient in Model.Recipe.Ingredients)
+    {
+        <li>@ingredient</li>
+    }
+</ul>
+<h3>Steps</h3>
+<ul>
+    @foreach (var step in Model.Recipe.Steps)
+    {
+        <li>@step</li>
+    }
+</ul>
