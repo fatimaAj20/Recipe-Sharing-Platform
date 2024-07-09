@@ -1,0 +1,28 @@
+﻿@page "{id:int}"
+@model RecipeSharingProject.Client.Pages.Recipe.EditRecipeModel
+@{
+    ViewData["Title"] = "Edit Recipe";
+}
+
+<h2>Edit Recipe</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" name="Name" class="form-control" value="@Model.Recipe.Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="Ingredients">Ingredients</label>
+        <textarea id="Ingredients" name="Ingredients" class="form-control">@string.Join(", ", Model.Recipe.Ingredients)</textarea>
+        <small class="form-text text-muted">Separate ingredients with a comma.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="Steps">Steps</label>
+        <textarea id="Steps" name="Steps" class="form-control">@string.Join(", ", Model.Recipe.Steps)</textarea>
+        <small class="form-text text-muted">Separate steps with a comma.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

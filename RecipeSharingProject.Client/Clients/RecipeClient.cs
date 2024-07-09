@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RecipeSharingProject.Common.Dtos;
 using RecipeSharingProject.Common.Dtos.Recipe;
+using System.Net.Http;
 using System.Text;
 
 namespace RecipeSharingProject.Client.Clients
@@ -126,6 +127,68 @@ namespace RecipeSharingProject.Client.Clients
             }
 
             return null ;
+        }
+        public async Task DeleteRecipeAsync(RecipeDelete recipeDelete)
+        {   
+            string url = $"{baseUrl}/{controllerName}/Delete";
+
+            try
+            {
+                var json = JsonConvert.SerializeObject(recipeDelete);
+                var content = new StringContent(json, Encoding.UTF8,"application/json");
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = new Uri(url),
+                    Content = content
+                };
+
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Recipe deleted successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Error deleting recipe: {response.StatusCode}");
+                }
+
+            }
+            catch (HttpRequestException e)
+            {
+                // Log exception
+            }
+        }
+        public async Task UpdateRecipeAsync(RecipeUpdate recipeUpdate)
+        {
+            string url = $"{baseUrl}/{controllerName}/Update";
+
+            try
+            {
+                // Serialize the RecipeCreate object to JSON
+                var json = JsonConvert.SerializeObject(recipeUpdate);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Send the POST request
+                HttpResponseMessage response = await this.httpClient.PutAsync(url, content);
+
+                // Check if the request was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Recipe created successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Error creating recipe: {response.StatusCode}");
+                }
+
+            }
+            catch (HttpRequestException e)
+            {
+                // Log exception
+            }
+
         }
     }
 }

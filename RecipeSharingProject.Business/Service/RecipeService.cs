@@ -81,8 +81,8 @@ public class RecipeService : IRecipeService
         if (existingentity == null)
             throw new RecipeNotFoundException(recipeUpdate.Id);
 
-        var entity = Mapper.Map<Recipe>(recipeUpdate);
-        RecipeRepository.Update(entity);
+        Mapper.Map(recipeUpdate, existingentity);
+        RecipeRepository.Update(existingentity);
         await RecipeRepository.SaveChangesAsync();
     }
 }

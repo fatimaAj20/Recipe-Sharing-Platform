@@ -1,22 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using RecipeSharingProject.Client.Clients;
 using RecipeSharingProject.Common.Dtos;
 using RecipeSharingProject.Common.Dtos.Recipe;
 
 namespace RecipeSharingProject.Client.Pages.Recipe
 {
-    public class RecipeDetailsModel : PageModel
+    public class EditRecipeModel : PageModel
     {
-        private readonly ILogger<RecipeDetailsModel> _logger;
+        private readonly ILogger<EditRecipeModel> _logger;
         private RecipeClient client;
 
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
 
+        [BindProperty]
         public RecipeDetails Recipe { get; set; }
-        public RecipeDetailsModel(ILogger<RecipeDetailsModel> logger)
+
+
+        public EditRecipeModel(ILogger<EditRecipeModel> logger)
         {
             _logger = logger;
             client = new RecipeClient();
@@ -27,9 +29,13 @@ namespace RecipeSharingProject.Client.Pages.Recipe
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            RecipeDelete recipeDelete = new RecipeDelete(Id);
-            await client.DeleteRecipeAsync(recipeDelete);
-            return RedirectToPage("/Index");
+            var ingredients = Request.Form["Ingredients"].ToString().Split(',', System.StringSplitOptions.RemoveEmptyEntries);
+            var steps = Request.Form["Steps"].ToString().Split(',', System.StringSplitOptions.RemoveEmptyEntries);
+
+            RecipeUpdate recipeUpdate = new RecipeUpdate(Recipe.Id, Request.Form["Name"], new List<string>(ingredients), new List<string>(steps));
+            await client.UpdateRecipeAsync(recipeUpdate);
+
+            return RedirectToPage($"/Recipe/RecipeDetails", new {Id =Id});
         }
     }
 }
