@@ -5,9 +5,9 @@ namespace RecipeSharingProject.Common.Interfaces;
 
 public interface IRecipeService
 {
-    public Task<int> CreateRecipeAsync(RecipeCreate recipeCreate);
-    public Task UpdateRecipeAsync(RecipeUpdate recipeUpdate);
+    Task<int> CreateRecipeAsync(RecipeCreate recipeCreate);
+    Task UpdateRecipeAsync(RecipeUpdate recipeUpdate);
     public Task DeleteRecipeAsync(RecipeDelete recipeDelete);
-    Task<RecipeDetails> GetRecipeAsync(int id);
+    Task<RecipeDetails> GetRecipeAsync(int id, string email);
     Task<List<RecipeList>> GetRecipesAsync(RecipeFilter recipeFilter);
 }

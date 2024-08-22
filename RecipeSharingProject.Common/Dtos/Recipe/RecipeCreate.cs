@@ -1,3 +1,4 @@
-﻿namespace RecipeSharingProject.Common.Dtos.Recipe;
+﻿using Microsoft.AspNetCore.Http;
 
-public record RecipeCreate(string Name, List<string> Ingredients, List<string> Steps);
+namespace RecipeSharingProject.Common.Dtos.Recipe;
+public record RecipeCreate(string Name, string Ingredients, string Steps , string Email, IFormFile? Photo);

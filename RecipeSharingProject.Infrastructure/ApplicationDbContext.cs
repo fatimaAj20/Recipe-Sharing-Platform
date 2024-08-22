@@ -24,18 +24,6 @@ public class ApplicationDbContext:IdentityDbContext<IdentityUser, IdentityRole, 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Recipe>().HasKey(e => e.Id);
-
-        builder.Entity<Recipe>()
-    .Property(r => r.Ingredients)
-    .HasConversion(
-        v => JsonConvert.SerializeObject(v),
-        v => JsonConvert.DeserializeObject<List<string>>(v));
-
-        builder.Entity<Recipe>()
-    .Property(r => r.Steps)
-    .HasConversion(
-        v => JsonConvert.SerializeObject(v),
-        v => JsonConvert.DeserializeObject<List<string>>(v));
         base.OnModelCreating(builder);
     }
 }

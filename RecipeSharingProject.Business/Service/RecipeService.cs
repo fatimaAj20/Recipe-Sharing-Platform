@@ -13,25 +13,36 @@ namespace RecipeSharingProject.Business.Exceptions;
 public class RecipeService : IRecipeService
 {
     private IMapper Mapper { get; }
-
     private IGenericRepository<Recipe> RecipeRepository { get; }
     private RecipeCreateValidator RecipeCreateValidator { get; }
     private RecipeUpdateValidator RecipeUpdateValidator { get; }
+    private IUploadService UploadService { get; }
+    private ImageFileValidator ImageFileValidator { get; }
 
-    public RecipeService(IMapper mapper, IGenericRepository<Recipe> recipeRepository ,RecipeCreateValidator recipeCreateValidator,
-        RecipeUpdateValidator recipeUpdateValidator
+    public RecipeService(IMapper mapper, IGenericRepository<Recipe> recipeRepository, RecipeCreateValidator recipeCreateValidator,
+                         RecipeUpdateValidator recipeUpdateValidator, IUploadService uploadService, ImageFileValidator imageFileValidator
         )
     {
         Mapper = mapper;
         RecipeRepository = recipeRepository;
-        RecipeCreateValidator=recipeCreateValidator;
-        RecipeUpdateValidator =recipeUpdateValidator;
+        RecipeCreateValidator = recipeCreateValidator;
+        RecipeUpdateValidator = recipeUpdateValidator;
+        UploadService = uploadService;
+        ImageFileValidator = imageFileValidator;
     }
     public async Task<int> CreateRecipeAsync(RecipeCreate recipeCreate)
     {
         await RecipeCreateValidator.ValidateAndThrowAsync(recipeCreate);
+        string filename = null;
 
-        var entity = Mapper.Map<Recipe>(recipeCreate); 
+        if (recipeCreate.Photo != null)
+        {
+            await ImageFileValidator.ValidateAndThrowAsync(recipeCreate.Photo);
+            filename = await UploadService.UploadFileAsync(recipeCreate.Photo);
+        }
+
+        var entity = Mapper.Map<Recipe>(recipeCreate);
+        entity.RecipePhotoPath = filename;
         await RecipeRepository.InsertAsync(entity);
         await RecipeRepository.SaveChangesAsync();
         return entity.Id;
@@ -41,34 +52,44 @@ public class RecipeService : IRecipeService
     {
         var entity = await RecipeRepository.GetByIdAsync(recipeDelete.Id);
 
-        if (entity == null)
+        if (entity == null || !entity.Email.Equals(recipeDelete.Email))
             throw new RecipeNotFoundException(recipeDelete.Id);
 
         RecipeRepository.Delete(entity);
         await RecipeRepository.SaveChangesAsync();
     }
 
-    public async Task<RecipeDetails> GetRecipeAsync(int id)
+    public async Task<RecipeDetails> GetRecipeAsync(int id, string email)
     {
         var recipe = await RecipeRepository.GetByIdAsync(id);
 
-        if (recipe == null)
+        if (recipe == null || !recipe.Email.Equals(email))
             throw new RecipeNotFoundException(id);
+        RecipeDetails recipeDetails = Mapper.Map<RecipeDetails>(recipe);
 
-        return Mapper.Map<RecipeDetails>(recipe);
+        // Populate the photoUrl using the path from the recipe.
+        if (recipe.RecipePhotoPath != null)
+        {
+            recipeDetails.PhotoUrl = UploadService.GetFileUrl(recipe.RecipePhotoPath);
+        }
+
+        return recipeDetails;
     }
 
     public async Task<List<RecipeList>> GetRecipesAsync(RecipeFilter recipeFilter)
     {
         Expression<Func<Recipe, bool>> NameFilter = (recipe) => recipeFilter.Name == null ? true :
         recipe.Name.ToLower().StartsWith(recipeFilter.Name.ToLower());
-      
+
+        Expression<Func<Recipe, bool>> EmailFilter = (recipe) => recipeFilter.Email == null ? false :
+        recipeFilter.Email.Equals(recipe.Email);
 
         var entities = await RecipeRepository.GetFilterAsync(new Expression<Func<Recipe, bool>>[]
         {
-            NameFilter
+            NameFilter, EmailFilter
         }, recipeFilter.Skip, recipeFilter.Take
         );
+
         return Mapper.Map<List<RecipeList>>(entities);
     }
 
@@ -77,9 +98,17 @@ public class RecipeService : IRecipeService
         await RecipeUpdateValidator.ValidateAndThrowAsync(recipeUpdate);
 
         var existingentity = await RecipeRepository.GetByIdAsync(recipeUpdate.Id);
+        string filename = null;
 
-        if (existingentity == null)
+        if (existingentity == null || !existingentity.Email.Equals(recipeUpdate.Email))
             throw new RecipeNotFoundException(recipeUpdate.Id);
+
+        if (recipeUpdate.Photo != null)
+        {
+            await ImageFileValidator.ValidateAndThrowAsync(recipeUpdate.Photo);
+            filename = await UploadService.UploadFileAsync(recipeUpdate.Photo);
+            existingentity.RecipePhotoPath = filename;
+        }
 
         Mapper.Map(recipeUpdate, existingentity);
         RecipeRepository.Update(existingentity);

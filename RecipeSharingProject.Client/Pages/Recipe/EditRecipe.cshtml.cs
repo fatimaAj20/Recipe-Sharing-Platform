@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using RecipeSharingProject.Client.Clients;
+using RecipeSharingProject.Client.Utils;
 using RecipeSharingProject.Common.Dtos;
 using RecipeSharingProject.Common.Dtos.Recipe;
 
 namespace RecipeSharingProject.Client.Pages.Recipe
 {
+    [Authorize]
     public class EditRecipeModel : PageModel
     {
         private readonly ILogger<EditRecipeModel> _logger;
@@ -17,25 +21,27 @@ namespace RecipeSharingProject.Client.Pages.Recipe
         [BindProperty]
         public RecipeDetails Recipe { get; set; }
 
+        [BindProperty]
+        public IFormFile? RecipePicture { get; set; }
 
-        public EditRecipeModel(ILogger<EditRecipeModel> logger)
+        public EditRecipeModel(ILogger<EditRecipeModel> logger, RecipeClient client)
         {
             _logger = logger;
-            client = new RecipeClient();
+            this.client = client;
         }
         public async Task OnGetAsync()
         {
-            this.Recipe = await client.GetRecipeByIdAsync(Id);
+            this.Recipe = await client.GetRecipeByIdAsync(Id, AuthenticationUtils.GetEmail(User));
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var ingredients = Request.Form["Ingredients"].ToString().Split(',', System.StringSplitOptions.RemoveEmptyEntries);
-            var steps = Request.Form["Steps"].ToString().Split(',', System.StringSplitOptions.RemoveEmptyEntries);
+            var ingredients = Request.Form["Ingredients"];
+            var steps = Request.Form["Steps"];
 
-            RecipeUpdate recipeUpdate = new RecipeUpdate(Recipe.Id, Request.Form["Name"], new List<string>(ingredients), new List<string>(steps));
+            RecipeUpdate recipeUpdate = new RecipeUpdate(Recipe.Id, Request.Form["Name"], ingredients, steps, AuthenticationUtils.GetEmail(User), RecipePicture);
             await client.UpdateRecipeAsync(recipeUpdate);
 
-            return RedirectToPage($"/Recipe/RecipeDetails", new {Id =Id});
+            return RedirectToPage($"/Recipe/RecipeDetails", new { Id = Id });
         }
     }
 }

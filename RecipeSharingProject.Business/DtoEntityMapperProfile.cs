@@ -17,5 +17,4 @@ public class DtoEntityMapperProfile : Profile
         CreateMap<Recipe, RecipeDetails>();
         CreateMap<Recipe, RecipeList>();
     }
-
 }

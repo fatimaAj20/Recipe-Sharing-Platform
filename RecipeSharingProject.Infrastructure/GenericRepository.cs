@@ -19,7 +19,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         if (applicationDbContext.Entry(entity).State == EntityState.Detached)
         {
             DbSet.Attach(entity);
-
         }
         DbSet.Remove(entity);
 
@@ -46,7 +45,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         IQueryable<T> query = DbSet;
 
-        query = query.Where(e => e.Id == id);
+        query = query.Where(e =>e.Id == id);
 
         foreach (var include in includes)
             query = query.Include(include);

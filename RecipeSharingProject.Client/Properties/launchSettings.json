@@ -26,7 +26,11 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "BASE_URL": "https://localhost:7134",
-        "SUBSCRIPTION_KEY": "Secret"
+        "SUBSCRIPTION_KEY": "Secret",
+        "Instance": "https://login.microsoftonline.com/",
+        "CLIENT_ID": "Secret",
+        "CLIENT_SECRET": "Secret",
+        "CALLBACK_PATH": "/signin-microsoft"
       }
     },
     "IIS Express": {

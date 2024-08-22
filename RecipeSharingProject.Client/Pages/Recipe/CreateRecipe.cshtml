@@ -1,25 +1,35 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
 @model RecipeSharingProject.Client.Pages.Recipe.RecipeModel
 @{
 }
 
 <h2>Create Recipe</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label asp-for="Recipe.Name"></label>
-        <input asp-for="Recipe.Name" class="form-control" />
+        <label for="Name">Name</label>
+        <input type="text" id="Name" name="Name" class="form-control" />
     </div>
-   
+
     <div class="form-group">
-        <label asp-for="Recipe.Ingredients"></label>
-        <input asp-for="Recipe.Ingredients" class="form-control" />
+        <label for="Ingredients">Ingredients</label>
+        <textarea id="Ingredients" name="Ingredients" class="form-control"></textarea>
         <small class="form-text text-muted">Enter ingredients separated by commas</small>
     </div>
     <div class="form-group">
-        <label asp-for="Recipe.Steps"></label>
-        <input asp-for="Recipe.Steps" class="form-control" />
+        <label for="Steps">Steps</label>
+        <textarea id="Steps" name="Steps" class="form-control"></textarea>
         <small class="form-text text-muted">Enter steps separated by commas</small>
     </div>
+
+    <div class="form-group">
+        <label for="RecipePicture">Recipe Picture</label>
+        <input type="file" id="RecipePicture" name="RecipePicture" class="form-control" accept="image/*" />
+        <small class="form-text text-muted">Upload a picture for the recipe</small>
+    </div>
+
     <button type="submit" class="btn btn-primary">Create</button>
 </form>

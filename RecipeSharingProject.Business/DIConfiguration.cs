@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using RecipeSharingProject.Business.Exceptions;
 using RecipeSharingProject.Business.Validation;
 using RecipeSharingProject.Common.Interfaces;
@@ -15,5 +14,6 @@ public class DIConfiguration
 
         services.AddScoped<RecipeCreateValidator>();
         services.AddScoped<RecipeUpdateValidator>();
+        services.AddScoped<ImageFileValidator>();
     }
 }

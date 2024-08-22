@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RecipeSharingProject.Common.Dtos.Recipe;
 using RecipeSharingProject.Common.Interfaces;
 
@@ -19,21 +19,19 @@ public class RecipeController: ControllerBase
 
     [HttpPost]
     [Route("Create")]
-    public async Task<IActionResult> CreateRecipe(RecipeCreate recipeCreate)
+    public async Task<IActionResult> CreateRecipe([FromForm] RecipeCreate recipeCreate)
     {
         var id = await RecipeService.CreateRecipeAsync(recipeCreate);
         return Ok(id);
-
     }
+
     [HttpPut]
     [Route("Update")]
-    public async Task<IActionResult> UpdateRecipe(RecipeUpdate recipeUpdate)
+    public async Task<IActionResult> UpdateRecipe([FromForm]RecipeUpdate recipeUpdate)
     {
         await RecipeService.UpdateRecipeAsync(recipeUpdate);
         return Ok();
     }
-
-    
 
     [HttpDelete]
     [Route("Delete")]
@@ -42,14 +40,15 @@ public class RecipeController: ControllerBase
         await RecipeService.DeleteRecipeAsync(recipeDelete);
         return Ok();
     }
+
     [HttpGet]
     [Route("Get/{id}")]
-    public async Task<IActionResult> GetRecipe(int id)
+    public async Task<IActionResult> GetRecipe(int id, [FromQuery] string email)
     {
-            var recipe = await RecipeService.GetRecipeAsync(id);
-            return Ok(recipe);
-       
+        var recipe = await RecipeService.GetRecipeAsync(id, email);
+        return Ok(recipe);
     }
+
     [HttpGet]
     [Route("Get")]
     public async Task<IActionResult> GetRecipes([FromQuery] RecipeFilter recipeFilter)

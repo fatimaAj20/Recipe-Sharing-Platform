@@ -1,3 +1,3 @@
 ﻿namespace RecipeSharingProject.Common.Dtos.Recipe;
 
-public record RecipeDelete(int Id);
+public record RecipeDelete(int Id, string Email);

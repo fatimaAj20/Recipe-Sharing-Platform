@@ -1,3 +1,22 @@
 ﻿namespace RecipeSharingProject.Common.Dtos.Recipe;
 
-public record RecipeFilter(string? Name, int? Skip, int? Take);
+public class RecipeFilter
+{
+    public string? Name { get; set; }
+    public int? Skip { get; set; }
+    public int? Take { get; set; }
+    public string? Email { get; set; }
+
+    public RecipeFilter()
+    {
+        
+    }
+
+    public RecipeFilter(string? Name, int? Skip, int? Take, string Email)
+    {
+        this.Name = Name;
+        this.Skip = Skip;
+        this.Take = Take;
+        this.Email = Email;
+    }
+}
