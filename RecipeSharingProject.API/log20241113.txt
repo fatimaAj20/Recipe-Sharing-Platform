@@ -77,4 +77,23 @@ SELECT 1 ELSE SELECT 0{"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCo
  13:10:42 [] Executed action RecipeSharingProject.API.Controllers.RecipeController.GetRecipes (RecipeSharingProject.API) in 989.6329ms{"EventId":{"Id":105,"Name":"ActionExecuted"},"SourceContext":"Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker","RequestId":"0HN844TT1I0SV:00000001","RequestPath":"/recipe/get","ConnectionId":"0HN844TT1I0SV"} 
  13:10:42 [] Executed endpoint 'RecipeSharingProject.API.Controllers.RecipeController.GetRecipes (RecipeSharingProject.API)'{"EventId":{"Id":1,"Name":"ExecutedEndpoint"},"SourceContext":"Microsoft.AspNetCore.Routing.EndpointMiddleware","RequestId":"0HN844TT1I0SV:00000001","RequestPath":"/recipe/get","ConnectionId":"0HN844TT1I0SV"} 
  13:10:42 [] Request finished HTTP/1.1 GET https://localhost:7134/recipe/get?email=baydounkhalil1@gmail.com - 200 0 null 1114.1742ms{"EventId":{"Id":2},"SourceContext":"Microsoft.AspNetCore.Hosting.Diagnostics","RequestId":"0HN844TT1I0SV:00000001","RequestPath":"/recipe/get","ConnectionId":"0HN844TT1I0SV"} 
+ 15:38:40 [] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1{"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command"} 
+ 15:38:40 [] Executed DbCommand (143ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0{"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command"} 
+ 15:38:40 [] User profile is available. Using 'C:\Users\ajfat\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.{"EventId":{"Id":63,"Name":"UsingProfileAsKeyRepositoryWithDPAPI"},"SourceContext":"Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"} 
  
