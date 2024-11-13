@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeSharingProject.Business.Exceptions;
 using RecipeSharingProject.Business.Validation;
 using RecipeSharingProject.Common.Dtos;
@@ -30,6 +31,7 @@ public class RecipeService : IRecipeService
         UploadService = uploadService;
         ImageFileValidator = imageFileValidator;
     }
+
     public async Task<int> CreateRecipeAsync(RecipeCreate recipeCreate)
     {
         await RecipeCreateValidator.ValidateAndThrowAsync(recipeCreate);
@@ -43,6 +45,7 @@ public class RecipeService : IRecipeService
 
         var entity = Mapper.Map<Recipe>(recipeCreate);
         entity.RecipePhotoPath = filename;
+        entity.SharingKey = Guid.NewGuid().ToString();
         await RecipeRepository.InsertAsync(entity);
         await RecipeRepository.SaveChangesAsync();
         return entity.Id;
@@ -71,6 +74,29 @@ public class RecipeService : IRecipeService
         if (recipe.RecipePhotoPath != null)
         {
             recipeDetails.PhotoUrl = UploadService.GetFileUrl(recipe.RecipePhotoPath);
+        }
+
+        return recipeDetails;
+    }
+
+    public async Task<RecipeDetails> GetSharedRecipeAsync(string sharingKey)
+    {
+        Expression<Func<Recipe, bool>> sharingKeyFilter = (recipe) => recipe.SharingKey.StartsWith(sharingKey);
+
+        var recipe = await RecipeRepository.GetFilterAsync(new Expression<Func<Recipe, bool>>[]
+        {
+            sharingKeyFilter
+        }, 0, 1
+        );
+
+        if (recipe[0] == null)
+            throw new RecipeNotFoundException();
+        RecipeDetails recipeDetails = Mapper.Map<RecipeDetails>(recipe[0]);
+
+        // Populate the photoUrl using the path from the recipe.
+        if (recipe[0].RecipePhotoPath != null)
+        {
+            recipeDetails.PhotoUrl = UploadService.GetFileUrl(recipe[0].RecipePhotoPath);
         }
 
         return recipeDetails;
@@ -114,4 +140,5 @@ public class RecipeService : IRecipeService
         RecipeRepository.Update(existingentity);
         await RecipeRepository.SaveChangesAsync();
     }
+
 }

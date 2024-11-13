@@ -13,26 +13,35 @@ namespace RecipeSharingProject.Client.Pages.Recipe
     public class RecipeDetailsModel : PageModel
     {
         private readonly ILogger<RecipeDetailsModel> _logger;
-        private RecipeClient client;
+        private RecipeClient _client;
 
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
-
         public RecipeDetails Recipe { get; set; }
+        public RecipeClient Client { get; }
+
         public RecipeDetailsModel(ILogger<RecipeDetailsModel> logger, RecipeClient client)
         {
             _logger = logger;
-            this.client = client;
+            this._client = client;
         }
+
         public async Task OnGetAsync()
         {
-            this.Recipe = await client.GetRecipeByIdAsync(Id, AuthenticationUtils.GetEmail(User));
+            Recipe = await _client.GetRecipeByIdAsync(Id, AuthenticationUtils.GetEmail(User)); 
         }
+
+        public string GenerateSharingUrl() 
+        { 
+            return _client.GenerateSharingUrl(Recipe.SharingKey); 
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
             RecipeDelete recipeDelete = new RecipeDelete(Id, AuthenticationUtils.GetEmail(User));
-            await client.DeleteRecipeAsync(recipeDelete);
+            await _client.DeleteRecipeAsync(recipeDelete);
             return RedirectToPage("/Index");
         }
+
     }
 }

@@ -6,5 +6,6 @@ public class RecipeDetails
     public string Name { get; set; }
     public string Ingredients { get; set; }
     public string Steps { get; set; }
+    public string SharingKey { get; set; }
     public string? PhotoUrl { get; set; }
 } 

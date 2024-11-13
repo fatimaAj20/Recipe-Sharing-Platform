@@ -29,10 +29,12 @@ namespace RecipeSharingProject.Client.Pages.Recipe
             _logger = logger;
             this.client = client;
         }
+
         public async Task OnGetAsync()
         {
             this.Recipe = await client.GetRecipeByIdAsync(Id, AuthenticationUtils.GetEmail(User));
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
             var ingredients = Request.Form["Ingredients"];

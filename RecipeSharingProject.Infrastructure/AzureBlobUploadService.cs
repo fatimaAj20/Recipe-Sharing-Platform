@@ -10,6 +10,7 @@ public class AzureBlobUploadService : IUploadService
     public AzureBlobUploadService()
     {
         var connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
+        Console.WriteLine(connectionString);
         var containerName = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONTAINER_NAME");
         var blobServiceClient = new BlobServiceClient(connectionString);
         BlobContainerClient = blobServiceClient.GetBlobContainerClient(containerName);

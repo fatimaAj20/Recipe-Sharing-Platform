@@ -9,5 +9,6 @@ public interface IRecipeService
     Task UpdateRecipeAsync(RecipeUpdate recipeUpdate);
     public Task DeleteRecipeAsync(RecipeDelete recipeDelete);
     Task<RecipeDetails> GetRecipeAsync(int id, string email);
+    public Task<RecipeDetails> GetSharedRecipeAsync(string sharingKey);
     Task<List<RecipeList>> GetRecipesAsync(RecipeFilter recipeFilter);
 }

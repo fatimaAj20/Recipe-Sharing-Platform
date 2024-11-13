@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using RecipeSharingProject.API.Controllers;
 using RecipeSharingProject.Business.Exceptions;
 using System.Text.Json;
 
@@ -8,9 +9,11 @@ namespace RecipeSharingProject.API;
 public class ExceptionMiddleware
 {
     private RequestDelegate Next { get; }
-    public ExceptionMiddleware(RequestDelegate next)
+    private ILogger<ExceptionMiddleware> Logger { get; }
+    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> _logger)
     {
         Next = next;
+        this.Logger = _logger;
     }
 
     public async Task Invoke(HttpContext context)
@@ -21,6 +24,7 @@ public class ExceptionMiddleware
         }
         catch (RecipeNotFoundException ex)
         {
+            Logger.LogError(ex, "Recipe not Found");
             context.Response.ContentType = "application/problem+json";
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
@@ -38,6 +42,8 @@ public class ExceptionMiddleware
         }
         catch (ValidationException ex)
         {
+            Logger.LogError(ex, "Not valid  input");
+
             context.Response.ContentType = "application/problem+json";
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
@@ -57,6 +63,8 @@ public class ExceptionMiddleware
         }
         catch (Exception ex)
         {
+            Logger.LogError(ex, "Internal server error");
+
             context.Response.ContentType = "application/problem+json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 

@@ -24,6 +24,7 @@ public class ApplicationDbContext:IdentityDbContext<IdentityUser, IdentityRole, 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Recipe>().HasKey(e => e.Id);
+
         base.OnModelCreating(builder);
     }
 }

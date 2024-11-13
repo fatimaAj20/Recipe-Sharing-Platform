@@ -26,6 +26,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "BASE_URL": "https://localhost:7134",
+        "CLIENT_BASE_URL": "https://localhost:7140",
         "SUBSCRIPTION_KEY": "Secret",
         "Instance": "https://login.microsoftonline.com/",
         "CLIENT_ID": "Secret",

@@ -11,6 +11,7 @@ namespace RecipeSharingProject.Client.Clients
     public class RecipeClient : BaseClient
     {
         private string controllerName = "recipe";
+
         public RecipeClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
@@ -50,44 +51,38 @@ namespace RecipeSharingProject.Client.Clients
             List<RecipeList> recipes = new List<RecipeList>();
             try
             {
-                // Send the GET request
                 HttpResponseMessage response = await this.httpClient.GetAsync(url);
 
-                // Check if the request was successful
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the response content as a string
                     string responseBody = await response.Content.ReadAsStringAsync();
                     recipes = JsonConvert.DeserializeObject<List<RecipeList>>(responseBody);
                 }
                 else
                 {
                     Console.WriteLine($"statusCode : {response.StatusCode}");
-                    // Log status code
                 }
             }
             catch (Exception e)
             {
 
                 Console.WriteLine($"{e}");
-                // Log exception
             }
 
             return recipes;
         }
+
         public async Task CreateRecipeAsync(RecipeCreate recipeCreate)
         {
             string url = $"{baseUrl}/{controllerName}/create";
 
             using (var formContent = new MultipartFormDataContent())
             {
-                // Add basic recipe data to the form
                 formContent.Add(new StringContent(recipeCreate.Name), "Name");
                 formContent.Add(new StringContent(recipeCreate.Email), "Email");
                 formContent.Add(new StringContent(recipeCreate.Ingredients), "Ingredients");
                 formContent.Add(new StringContent(recipeCreate.Steps), "Steps");
 
-                // If an image file is provided, add it to the form content
                 if (recipeCreate.Photo != null)
                 {
                     var fileContent = new StreamContent(recipeCreate.Photo.OpenReadStream());
@@ -97,10 +92,8 @@ namespace RecipeSharingProject.Client.Clients
 
                 try
                 {
-                    // Post the form data to the API
                     HttpResponseMessage response = await this.httpClient.PostAsync(url, formContent);
 
-                    // Handle response
                     if (response.IsSuccessStatusCode)
                     {
                         Console.WriteLine("Recipe created successfully.");
@@ -112,7 +105,6 @@ namespace RecipeSharingProject.Client.Clients
                 }
                 catch (HttpRequestException e)
                 {
-                    // Log exception
                     Console.WriteLine(e.Message);
                 }
             }
@@ -123,14 +115,12 @@ namespace RecipeSharingProject.Client.Clients
             string url = $"{baseUrl}/{controllerName}/Update";
             using (var formContent = new MultipartFormDataContent())
             {
-                // Add basic recipe data to the form
                 formContent.Add(new StringContent(recipeUpdate.Id.ToString()), "Id");
                 formContent.Add(new StringContent(recipeUpdate.Name), "Name");
                 formContent.Add(new StringContent(recipeUpdate.Email), "Email");
                 formContent.Add(new StringContent(recipeUpdate.Ingredients), "Ingredients");
                 formContent.Add(new StringContent(recipeUpdate.Steps), "Steps");
 
-                // If an image file is provided, add it to the form content
                 if (recipeUpdate.Photo != null)
                 {
                     var fileContent = new StreamContent(recipeUpdate.Photo.OpenReadStream());
@@ -140,10 +130,8 @@ namespace RecipeSharingProject.Client.Clients
 
                 try
                 {
-                    // Post the form data to the API
                     HttpResponseMessage response = await this.httpClient.PutAsync(url, formContent);
 
-                    // Handle response
                     if (response.IsSuccessStatusCode)
                     {
                         Console.WriteLine("Recipe created successfully.");
@@ -155,7 +143,6 @@ namespace RecipeSharingProject.Client.Clients
                 }
                 catch (HttpRequestException e)
                 {
-                    // Log exception
                     Console.WriteLine(e.Message);
                 }
             }
@@ -167,30 +154,52 @@ namespace RecipeSharingProject.Client.Clients
             Console.WriteLine($"{url}");
             try
             {
-                // Send the GET request
                 HttpResponseMessage response = await this.httpClient.GetAsync(url);
 
-                // Check if the request was successful
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the response content as a string
                     string responseBody = await response.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<RecipeDetails>(responseBody);
                 }
                 else
                 {
                     Console.WriteLine($"statusCode : {response.StatusCode}");
-                    // Log status code
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"{e}");
-                // Log exception
             }
 
             return null;
         }
+
+        public async Task<RecipeDetails> GetRecipeBySharingKey(string sharingkey)
+        {
+            string url = $"{baseUrl}/{controllerName}/share/{sharingkey}";
+            Console.WriteLine($"{url}");
+            try
+            {
+                HttpResponseMessage response = await this.httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<RecipeDetails>(responseBody);
+                }
+                else
+                {
+                    Console.WriteLine($"statusCode : {response.StatusCode}");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e}");
+            }
+
+            return null;
+        }
+
         public async Task DeleteRecipeAsync(RecipeDelete recipeDelete)
         {
             string url = $"{baseUrl}/{controllerName}/Delete";
@@ -219,8 +228,12 @@ namespace RecipeSharingProject.Client.Clients
             }
             catch (HttpRequestException e)
             {
-                // Log exception
             }
+        }
+
+        public string GenerateSharingUrl(string sharingKey)
+        {
+            return $"{clientBaseUrl}/Recipe/Shared/{sharingKey}";
         }
     }
 }

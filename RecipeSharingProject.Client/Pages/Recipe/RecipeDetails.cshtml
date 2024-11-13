@@ -13,22 +13,42 @@
         <img src="@Model.Recipe.PhotoUrl" alt="Recipe Image" style="max-width: 100%; height: auto;" />
     </div>
 }
+
 <h2>@Model.Recipe.Name</h2>
 
 <h3>Ingredients</h3>
+
 <ul>
     @foreach (var ingredient in Model.Recipe.Ingredients.Split(',', System.StringSplitOptions.RemoveEmptyEntries))
     {
         <li>@ingredient</li>
     }
 </ul>
+
 <h3>Steps</h3>
+
 <ul>
     @foreach (var step in Model.Recipe.Steps.Split(',', System.StringSplitOptions.RemoveEmptyEntries))
     {
         <li>@step</li>
     }
 </ul>
+
+<div>
+    <button onclick="openShareModal()">Share</button>
+    <div id="shareModal" class="modal"> 
+        <div> 
+            <span onclick="closeShareModal()">&times;</span> 
+            <h2>Share via:</h2>
+            <div>
+                <a href="#" id="whatsappShare" target="_blank">WhatsApp</a>
+                <a href="#" id="googleShare" target="_blank">Google</a> 
+                <a href="#" id="telegramShare" target="_blank">Telegram</a>
+            </div> 
+        </div> 
+    </div> 
+</div>
+
 <div>
     <a asp-page="/Recipe/EditRecipe" asp-route-id="@Model.Recipe.Id" class="btn btn-warning">Edit</a>
     <form method="post">
@@ -36,3 +56,33 @@
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 </div>
+
+@section Scripts 
+{
+    <script>
+
+        function openShareModal() 
+        { 
+            document.getElementById('shareModal').style.display = 'block';
+            var shareUrl = '@Model.GenerateSharingUrl()';
+            document.getElementById('whatsappShare').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`; 
+            document.getElementById('googleShare').href = `https://plus.google.com/share?url=${encodeURIComponent(shareUrl)}`;
+            document.getElementById('telegramShare').href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}`; 
+        } 
+
+        function closeShareModal() 
+        { 
+            document.getElementById('shareModal').style.display = 'none'; 
+        } 
+
+        window.onclick = function(event)
+        {
+            var modal = document.getElementById('shareModal'); 
+
+            if (event.target == modal) 
+            { 
+                modal.style.display = 'none';
+            } 
+        }       
+    </script>
+}

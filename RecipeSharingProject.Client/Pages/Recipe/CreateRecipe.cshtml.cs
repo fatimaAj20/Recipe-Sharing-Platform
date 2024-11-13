@@ -21,6 +21,7 @@ namespace RecipeSharingProject.Client.Pages.Recipe
 
         [BindProperty]
         public IFormFile? RecipePicture { get; set; }
+
         public void OnGet()
         {
         }
