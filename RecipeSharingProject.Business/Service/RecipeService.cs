@@ -107,12 +107,15 @@ public class RecipeService : IRecipeService
         Expression<Func<Recipe, bool>> NameFilter = (recipe) => recipeFilter.Name == null ? true :
         recipe.Name.ToLower().StartsWith(recipeFilter.Name.ToLower());
 
+        Expression<Func<Recipe, bool>> CuisineFilter = (recipe) => recipeFilter.Cuisine == null ? true :
+        recipe.Cuisine.ToLower().StartsWith(recipeFilter.Cuisine.ToLower());
+
         Expression<Func<Recipe, bool>> EmailFilter = (recipe) => recipeFilter.Email == null ? false :
         recipeFilter.Email.Equals(recipe.Email);
 
         var entities = await RecipeRepository.GetFilterAsync(new Expression<Func<Recipe, bool>>[]
         {
-            NameFilter, EmailFilter
+            NameFilter, CuisineFilter,EmailFilter
         }, recipeFilter.Skip, recipeFilter.Take
         );
 

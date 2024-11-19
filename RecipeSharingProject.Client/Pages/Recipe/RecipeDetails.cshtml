@@ -16,6 +16,9 @@
 
 <h2>@Model.Recipe.Name</h2>
 
+<h3>Cuisine</h3> 
+<p>@Model.Recipe.Cuisine</p>
+
 <h3>Ingredients</h3>
 
 <ul>
@@ -33,6 +36,75 @@
         <li>@step</li>
     }
 </ul>
+
+<h3>Time Needed</h3>
+<p>@Model.Recipe.TimeNeeded minutes</p>
+
+<h3>Serving</h3> 
+<p>@Model.Recipe.Serving servings</p>
+
+<h3>Nutrition Facts</h3>
+<table class="nutrition-table">
+
+    <tr> <th>Property</th>
+        <th>Value</th> 
+    </tr> 
+
+    <tr> 
+        <td>Calories</td>
+        <td>@Model.Recipe.Calories</td> 
+    </tr> 
+
+    <tr> <td>Fat (grams)</td> 
+        <td>@Model.Recipe.Fat</td> 
+    </tr> 
+
+    <tr>
+        <td>Saturated Fat (grams)</td>
+        <td>@Model.Recipe.SaturatedFat</td>
+    </tr> 
+
+    <tr> 
+        <td>Trans Fat (grams)</td> 
+        <td>@Model.Recipe.TransFat</td> 
+    </tr> 
+
+    <tr> 
+        <td>Cholesterol (mg)</td>
+        <td>@Model.Recipe.Cholesterol</td>
+    </tr> 
+
+    <tr> 
+        <td>Sodium (mg)</td> 
+        <td>@Model.Recipe.Sodium</td> 
+    </tr> 
+
+    <tr>
+        <td>Carbohydrates (grams)</td> 
+        <td>@Model.Recipe.Carbohydrates</td>
+    </tr>
+    
+    <tr> 
+        <td>Fiber (grams)</td>
+        <td>@Model.Recipe.Fiber</td>
+     </tr> 
+
+    <tr> 
+        <td>Sugars (grams)</td>
+        <td>@Model.Recipe.Sugars</td>
+    </tr>
+
+    <tr> 
+        <td>Protein (grams)</td> 
+        <td>@Model.Recipe.Protein</td> 
+    </tr> 
+
+    <tr> 
+        <td>Serving Size</td> 
+        <td>@Model.Recipe.ServingSize</td>
+    </tr> 
+
+</table>
 
 <div>
     <button onclick="openShareModal()">Share</button>

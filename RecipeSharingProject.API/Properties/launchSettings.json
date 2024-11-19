@@ -26,7 +26,7 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7134;http://localhost:5020",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Secret",
         "AZURE_STORAGE_CONNECTION_STRING": "Secret",
         "AZURE_STORAGE_CONTAINER_NAME": "Secret"
       }

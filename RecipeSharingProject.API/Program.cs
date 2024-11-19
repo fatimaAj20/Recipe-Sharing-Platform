@@ -48,7 +48,7 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbcontext.Database.EnsureCreated();
+    dbcontext.Database.Migrate();
 }
 
 app.UseMiddleware<ExceptionMiddleware>();

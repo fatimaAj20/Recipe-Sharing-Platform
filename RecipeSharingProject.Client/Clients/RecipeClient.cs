@@ -29,6 +29,10 @@ namespace RecipeSharingProject.Client.Clients
                 {
                     queryParams.Add($"name={filter.Name}");
                 }
+                if (!string.IsNullOrEmpty(filter.Cuisine))
+                {
+                    queryParams.Add($"cuisine={filter.Cuisine}");
+                }
                 if (filter.Take != null && filter.Take > 0)
                 {
                     queryParams.Add($"take={filter.Take}");
@@ -82,6 +86,21 @@ namespace RecipeSharingProject.Client.Clients
                 formContent.Add(new StringContent(recipeCreate.Email), "Email");
                 formContent.Add(new StringContent(recipeCreate.Ingredients), "Ingredients");
                 formContent.Add(new StringContent(recipeCreate.Steps), "Steps");
+                formContent.Add(new StringContent(recipeCreate.Cuisine), "Cuisine");
+                formContent.Add(new StringContent(recipeCreate.TimeNeeded.ToString()), "TimeNeeded");
+                formContent.Add(new StringContent(recipeCreate.Serving.ToString()), "Serving");
+                formContent.Add(new StringContent(recipeCreate.Calories.ToString()), "Calories");
+                formContent.Add(new StringContent(recipeCreate.Fat.ToString()), "Fat");
+                formContent.Add(new StringContent(recipeCreate.SaturatedFat.ToString()), "SaturatedFat");
+                formContent.Add(new StringContent(recipeCreate.TransFat.ToString()), "TransFat");
+                formContent.Add(new StringContent(recipeCreate.Cholesterol.ToString()), "Cholesterol");
+                formContent.Add(new StringContent(recipeCreate.Sodium.ToString()), "Sodium");
+                formContent.Add(new StringContent(recipeCreate.Carbohydrates.ToString()), "Carbohydrates");
+                formContent.Add(new StringContent(recipeCreate.Fiber.ToString()), "Fiber");
+                formContent.Add(new StringContent(recipeCreate.Sugars.ToString()), "Sugars");
+                formContent.Add(new StringContent(recipeCreate.Protein.ToString()), "Protein");
+                formContent.Add(new StringContent(recipeCreate.ServingSize), "ServingSize");
+
 
                 if (recipeCreate.Photo != null)
                 {
@@ -120,6 +139,20 @@ namespace RecipeSharingProject.Client.Clients
                 formContent.Add(new StringContent(recipeUpdate.Email), "Email");
                 formContent.Add(new StringContent(recipeUpdate.Ingredients), "Ingredients");
                 formContent.Add(new StringContent(recipeUpdate.Steps), "Steps");
+                formContent.Add(new StringContent(recipeUpdate.Cuisine), "Cuisine");
+                formContent.Add(new StringContent(recipeUpdate.TimeNeeded.ToString()), "TimeNeeded");
+                formContent.Add(new StringContent(recipeUpdate.Serving.ToString()), "Serving");
+                formContent.Add(new StringContent(recipeUpdate.Calories.ToString()), "Calories");
+                formContent.Add(new StringContent(recipeUpdate.Fat.ToString()), "Fat");
+                formContent.Add(new StringContent(recipeUpdate.SaturatedFat.ToString()), "SaturatedFat");
+                formContent.Add(new StringContent(recipeUpdate.TransFat.ToString()), "TransFat");
+                formContent.Add(new StringContent(recipeUpdate.Cholesterol.ToString()), "Cholesterol");
+                formContent.Add(new StringContent(recipeUpdate.Sodium.ToString()), "Sodium");
+                formContent.Add(new StringContent(recipeUpdate.Carbohydrates.ToString()), "Carbohydrates");
+                formContent.Add(new StringContent(recipeUpdate.Fiber.ToString()), "Fiber");
+                formContent.Add(new StringContent(recipeUpdate.Sugars.ToString()), "Sugars");
+                formContent.Add(new StringContent(recipeUpdate.Protein.ToString()), "Protein");
+                formContent.Add(new StringContent(recipeUpdate.ServingSize), "ServingSize");
 
                 if (recipeUpdate.Photo != null)
                 {
