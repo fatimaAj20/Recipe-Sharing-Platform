@@ -51,7 +51,6 @@ namespace RecipeSharingProject.Client.Clients
                 }
             }
 
-            Console.WriteLine($"{url}");
             List<RecipeList> recipes = new List<RecipeList>();
             try
             {
@@ -184,7 +183,6 @@ namespace RecipeSharingProject.Client.Clients
         public async Task<RecipeDetails> GetRecipeByIdAsync(int id, string email)
         {
             string url = $"{baseUrl}/{controllerName}/get/{id}?email={email}";
-            Console.WriteLine($"{url}");
             try
             {
                 HttpResponseMessage response = await this.httpClient.GetAsync(url);
@@ -210,7 +208,6 @@ namespace RecipeSharingProject.Client.Clients
         public async Task<RecipeDetails> GetRecipeBySharingKey(string sharingkey)
         {
             string url = $"{baseUrl}/{controllerName}/share/{sharingkey}";
-            Console.WriteLine($"{url}");
             try
             {
                 HttpResponseMessage response = await this.httpClient.GetAsync(url);
@@ -268,5 +265,52 @@ namespace RecipeSharingProject.Client.Clients
         {
             return $"{clientBaseUrl}/Recipe/Shared/{sharingKey}";
         }
+
+        public async Task<List<RecipeList>> SearchForRecipe(SearchParameters searchParameters)
+        {
+            string url = $"{baseUrl}/{controllerName}/Search";
+
+            if (searchParameters != null)
+            {
+                List<string> queryParams = new List<string>();
+
+                if (!string.IsNullOrEmpty(searchParameters.Query))
+                {
+                    queryParams.Add($"query={searchParameters.Query}");
+                }
+
+                if (!string.IsNullOrEmpty(searchParameters.Email))
+                {
+                    queryParams.Add($"email={searchParameters.Email}");
+                }
+                if (queryParams.Count > 0)
+                {
+                    url += "?" + string.Join("&", queryParams);
+                }
+            }
+            List<RecipeList> recipes = new List<RecipeList>();
+            try
+            {
+                HttpResponseMessage response = await this.httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    recipes = JsonConvert.DeserializeObject<List<RecipeList>>(responseBody);
+                }
+                else
+                {
+                    Console.WriteLine($"statusCode : {response.StatusCode}");
+                }
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine($"{e}");
+            }
+
+            return recipes;
+        }
+
     }
 }

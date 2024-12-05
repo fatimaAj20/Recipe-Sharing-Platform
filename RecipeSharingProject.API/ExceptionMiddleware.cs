@@ -33,7 +33,7 @@ public class ExceptionMiddleware
                 Status = StatusCodes.Status400BadRequest,
                 Detail = string.Empty,
                 Instance = "",
-                Title = $"Employee for id {ex.Id} not found.",
+                Title = $"Recipe for id {ex.Id} not found.",
                 Type = "Error"
             };
 

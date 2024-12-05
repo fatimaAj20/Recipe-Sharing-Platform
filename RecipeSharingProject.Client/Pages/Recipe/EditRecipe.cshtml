@@ -1,109 +1,218 @@
 ﻿@page "{id:int}"
 @using Microsoft.AspNetCore.Authorization
-
 @attribute [Authorize]
 @model RecipeSharingProject.Client.Pages.Recipe.EditRecipeModel
+
 @{
     ViewData["Title"] = "Edit Recipe";
 }
 
-<h2>Edit Recipe</h2>
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">Edit Recipe</h2>
 
-<form method="post" enctype="multipart/form-data">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
 
-    <div class="form-group">
-        <label for="Name">Name</label>
-        <input type="text" id="Name" name="Name" class="form-control" value="@Model.Recipe.Name" />
+                <!-- Name Input -->
+                <div class="form-group">
+                    <label for="Name" class="form-label">Recipe Name</label>
+                    <input type="text" id="Name" name="Name" class="form-control" value="@Model.Recipe.Name" placeholder="Enter recipe name" />
+                </div>
+
+                <!-- Ingredients Input -->
+                <div class="form-group">
+                    <label for="Ingredients" class="form-label">Ingredients</label>
+                    <textarea id="Ingredients" name="Ingredients" class="form-control" placeholder="List ingredients, separated by commas">@string.Join(", ", Model.Recipe.Ingredients)</textarea>
+                    <small class="form-text text-muted">Separate ingredients with a comma.</small>
+                </div>
+
+                <!-- Steps Input -->
+                <div class="form-group">
+                    <label for="Steps" class="form-label">Steps</label>
+                    <textarea id="Steps" name="Steps" class="form-control" placeholder="Describe the cooking steps">@string.Join(", ", Model.Recipe.Steps)</textarea>
+                    <small class="form-text text-muted">Separate steps with a comma.</small>
+                </div>
+
+                <!-- Cuisine Input -->
+                <div class="form-group">
+                    <label for="Cuisine" class="form-label">Cuisine</label>
+                    <input type="text" id="Cuisine" name="Cuisine" class="form-control" value="@Model.Recipe.Cuisine" placeholder="Enter cuisine type" />
+                </div>
+
+                <!-- Time Needed Input -->
+                <div class="form-group">
+                    <label for="TimeNeeded" class="form-label">Time Needed (minutes)</label>
+                    <input type="text" id="TimeNeeded" name="TimeNeeded" class="form-control" value="@Model.Recipe.TimeNeeded" placeholder="Enter cooking time" />
+                </div>
+
+                <!-- Serving Input -->
+                <div class="form-group">
+                    <label for="Serving" class="form-label">Serving</label>
+                    <input type="text" id="Serving" name="Serving" class="form-control" value="@Model.Recipe.Serving" placeholder="Enter number of servings" />
+                </div>
+
+                <!-- Nutrition Inputs -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Calories" class="form-label">Calories</label>
+                            <input type="text" id="Calories" name="Calories" class="form-control" value="@Model.Recipe.Calories" placeholder="Enter calories" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Fat" class="form-label">Fat (g)</label>
+                            <input type="text" id="Fat" name="Fat" class="form-control" value="@Model.Recipe.Fat" placeholder="Enter fat content" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Nutrition Inputs -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="SaturatedFat" class="form-label">Saturated Fat (g)</label>
+                            <input type="text" id="SaturatedFat" name="SaturatedFat" class="form-control" value="@Model.Recipe.SaturatedFat" placeholder="Enter saturated fat content" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="TransFat" class="form-label">Trans Fat (g)</label>
+                            <input type="text" id="TransFat" name="TransFat" class="form-control" value="@Model.Recipe.TransFat" placeholder="Enter trans fat content" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cholesterol, Sodium, Carbohydrates -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Cholesterol" class="form-label">Cholesterol (mg)</label>
+                            <input type="text" id="Cholesterol" name="Cholesterol" class="form-control" value="@Model.Recipe.Cholesterol" placeholder="Enter cholesterol content" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Sodium" class="form-label">Sodium (mg)</label>
+                            <input type="text" id="Sodium" name="Sodium" class="form-control" value="@Model.Recipe.Sodium" placeholder="Enter sodium content" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Carbohydrates" class="form-label">Carbohydrates (g)</label>
+                            <input type="text" id="Carbohydrates" name="Carbohydrates" class="form-control" value="@Model.Recipe.Carbohydrates" placeholder="Enter carbohydrates content" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fiber, Sugars, Protein -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Fiber" class="form-label">Fiber (g)</label>
+                            <input type="text" id="Fiber" name="Fiber" class="form-control" value="@Model.Recipe.Fiber" placeholder="Enter fiber content" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Sugars" class="form-label">Sugars (g)</label>
+                            <input type="text" id="Sugars" name="Sugars" class="form-control" value="@Model.Recipe.Sugars" placeholder="Enter sugars content" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="Protein" class="form-label">Protein (g)</label>
+                            <input type="text" id="Protein" name="Protein" class="form-control" value="@Model.Recipe.Protein" placeholder="Enter protein content" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Serving Size Input -->
+                <div class="form-group">
+                    <label for="ServingSize" class="form-label">Serving Size (g)</label>
+                    <input type="text" id="ServingSize" name="ServingSize" class="form-control" value="@Model.Recipe.ServingSize" placeholder="Enter serving size" />
+                </div>
+
+                <!-- Recipe Picture Input -->
+                <div class="form-group">
+                    <label for="RecipePicture" class="form-label">Recipe Picture</label>
+                    <input type="file" id="RecipePicture" name="RecipePicture" class="form-control" accept="image/*" />
+                    <small class="form-text text-muted">Upload an image for the recipe</small>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Save Recipe</button>
+            </form>
+        </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <label for="Ingredients">Ingredients</label>
-        <textarea id="Ingredients" name="Ingredients" class="form-control">@string.Join(", ", Model.Recipe.Ingredients)</textarea>
-        <small class="form-text text-muted">Separate ingredients with a comma.</small>
-    </div>
+@section Styles
+{
+    <style>
+        body {
+            background-color: #f8f9fa; /* Soft background color */
+            font-family: 'Roboto', sans-serif;
+        }
 
-    <div class="form-group">
-        <label for="Steps">Steps</label>
-        <textarea id="Steps" name="Steps" class="form-control">@string.Join(", ", Model.Recipe.Steps)</textarea>
-        <small class="form-text text-muted">Separate steps with a comma.</small>
-    </div>
+        /* Card Styling */
+        .card {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    <div class="form-group">
-        <label for="Cuisine">Cuisine</label>
-        <input type="text" id="Cuisine" name="Cuisine" class="form-control" />
-    </div>
+        .card-body {
+            padding: 30px;
+        }
 
-    <div class="form-group">
-        <label for="TimeNeeded">TimeNeeded</label>
-        <input type="text" id="TimeNeeded" name="TimeNeeded" class="form-control" />
-    </div>
+        /* Heading Style */
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #2c3e50;
+            letter-spacing: 2px;
+        }
 
-    <div class="form-group">
-        <label for="Serving">Serving</label>
-        <input type="text" id="Serving" name="Serving" class="form-control" />
-    </div>
+        /* Form Labels */
+        .form-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
 
-    <div class="form-group">
-        <label for="Calories">Calories</label>
-        <input type="text" id="Calories" name="Calories" class="form-control" />
-    </div>
+        /* Input Focus Effect */
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+        }
 
-    <div class="form-group">
-        <label for="Fat">Fat</label>
-        <input type="text" id="Fat" name="Fat" class="form-control" />
-    </div>
+        /* Button Styling */
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
 
-    <div class="form-group">
-        <label for="SaturatedFat">SaturatedFat</label>
-        <input type="text" id="SaturatedFat" name="SaturatedFat" class="form-control" />
-    </div>
+            .btn-primary:hover {
+                background-color: #2980b9;
+                border-color: #2980b9;
+            }
 
-    <div class="form-group">
-        <label for="TransFat">TransFat</label>
-        <input type="text" id="TransFat" name="TransFat" class="form-control" />
-    </div>
+        .btn-lg {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+        }
 
-    <div class="form-group">
-        <label for="Cholesterol">Cholesterol</label>
-        <input type="text" id="Cholesterol" name="Cholesterol" class="form-control" />
-    </div>
+        /* Card Shadow */
+        .card.shadow-sm {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
 
-    <div class="form-group">
-        <label for="Sodium">Sodium</label>
-        <input type="text" id="Sodium" name="Sodium" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="Carbohydrates">Carbohydrates</label>
-        <input type="text" id="Carbohydrates" name="Carbohydrates" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="Fiber">Fiber</label>
-        <input type="text" id="Fiber" name="Fiber" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="Sugars">Sugars</label>
-        <input type="text" id="Sugars" name="Sugars" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="Protein">Protein</label>
-        <input type="text" id="Protein" name="Protein" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="ServingSize">ServingSize</label>
-        <input type="text" id="ServingSize" name="ServingSize" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="RecipePicture">Recipe Picture</label>
-        <input type="file" id="RecipePicture" name="RecipePicture" class="form-control" accept="image/*" />
-        <small class="form-text text-muted">Upload a picture for the recipe</small>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-
-</form>
+        /* Small text under inputs */
+        .form-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+}

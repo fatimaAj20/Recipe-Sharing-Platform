@@ -19,7 +19,8 @@ DIConfiguration.RegisterService(builder.Services);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IGenericRepository<Recipe>, GenericRepository<Recipe>>();
-builder.Services.AddScoped<IUploadService, AzureBlobUploadService>();
+builder.Services.AddSingleton<IUploadService, AzureBlobUploadService>();
+builder.Services.AddSingleton<IRecipeSearchService, AzureRecipeSearchAIService>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -49,6 +50,9 @@ using (var scope = app.Services.CreateScope())
 {
     var dbcontext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbcontext.Database.Migrate();
+
+    var searchService = scope.ServiceProvider.GetRequiredService<IRecipeSearchService>();
+    searchService.CreateIndex();
 }
 
 app.UseMiddleware<ExceptionMiddleware>();

@@ -3,34 +3,48 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RecipeSharingProject.Client</title>
+    <title>@ViewData["Title"] - My Recipes Book</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RecipeSharingProject.Client.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
+<body class="bg-light">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm mb-4">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">RecipeSharingProject.Client</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand text-primary" asp-area="" asp-page="/Index">
+                    <i class="fas fa-utensils"></i> My Recipe Book
+                </a>
+
+                <!-- Toggle Button for Mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+
+                <!-- Navbar Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Home Link -->
+                        <li class="nav-item text-primary">
+                            <a class="nav-link text-primary" asp-area="" asp-page="/Index">
+                                <i class="fas fa-home"></i> Home
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Recipe/CreateRecipe">Create Recipe</a>
+
+                        <!-- Create Recipe Link -->
+                        <li class="nav-item text-primary">
+                            <a class="nav-link text-primary" asp-area="" asp-page="/Recipe/CreateRecipe">
+                                <i class="fas fa-plus-circle"></i> Create Recipe
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" >
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -38,7 +52,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - RecipeSharingProject.Client - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2024 - My Recipes Book - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 

@@ -28,12 +28,12 @@ namespace RecipeSharingProject.Client.Pages.Recipe
 
         public async Task OnGetAsync()
         {
-            Recipe = await _client.GetRecipeByIdAsync(Id, AuthenticationUtils.GetEmail(User)); 
+            Recipe = await _client.GetRecipeByIdAsync(Id, AuthenticationUtils.GetEmail(User));
         }
 
-        public string GenerateSharingUrl() 
-        { 
-            return _client.GenerateSharingUrl(Recipe.SharingKey); 
+        public string GenerateSharingUrl()
+        {
+            return _client.GenerateSharingUrl(Recipe.SharingKey);
         }
 
         public async Task<IActionResult> OnPostAsync()

@@ -40,7 +40,7 @@ namespace RecipeSharingProject.Client.Pages.Recipe
             var ingredients = Request.Form["Ingredients"];
             var steps = Request.Form["Steps"];
 
-            RecipeUpdate recipeUpdate = new RecipeUpdate(Recipe.Id, Request.Form["Name"], ingredients, steps, AuthenticationUtils.GetEmail(User), Request.Form["Cuisine"], int.Parse(Request.Form["TimeNeeded"]), int.Parse(Request.Form["Serving"]), int.Parse(Request.Form["Calories"]), double.Parse(Request.Form["Fat"]), double.Parse(Request.Form["SturatedFat"]), double.Parse(Request.Form["TransFat"]), int.Parse(Request.Form["Cholesterol"]), int.Parse(Request.Form["Sodium"]), double.Parse(Request.Form["Carbohydrates"]), double.Parse(Request.Form["Fiber"]), double.Parse(Request.Form["Sugars"]), double.Parse(Request.Form["Protein"]),  Request.Form["ServingSize"], RecipePicture);
+            RecipeUpdate recipeUpdate = new RecipeUpdate(Recipe.Id, Request.Form["Name"], ingredients, steps, AuthenticationUtils.GetEmail(User), Request.Form["Cuisine"], int.Parse(Request.Form["TimeNeeded"]), int.Parse(Request.Form["Serving"]), int.Parse(Request.Form["Calories"]), double.Parse(Request.Form["Fat"]), double.Parse(Request.Form["SaturatedFat"]), double.Parse(Request.Form["TransFat"]), int.Parse(Request.Form["Cholesterol"]), int.Parse(Request.Form["Sodium"]), double.Parse(Request.Form["Carbohydrates"]), double.Parse(Request.Form["Fiber"]), double.Parse(Request.Form["Sugars"]), double.Parse(Request.Form["Protein"]), Request.Form["ServingSize"], RecipePicture);
             await client.UpdateRecipeAsync(recipeUpdate);
 
             return RedirectToPage($"/Recipe/RecipeDetails", new { Id = Id });

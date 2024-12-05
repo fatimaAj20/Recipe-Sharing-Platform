@@ -1,5 +1,4 @@
-﻿
-@page
+﻿@page
 @using Microsoft.AspNetCore.Authorization
 
 @attribute [Authorize]
@@ -9,31 +8,69 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome To Recipes Sharing Platform </h1>
 
-    <form method="get">
-        <div class="form-group">
-            <label for="filterName">Search</label>
-            <input type="text" id="filterName" name="filter.Name" value="@Model.filter.Name" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+    <div class="container text-center my-5">
+        <h1 class="display-4 text-primary">Welcome To My Recipes Book</h1>
+        <p class="lead text-muted">Search your list of recipes here </p>
+    </div>
 
+    <!-- Search Form Section -->
+    <div class="container mb-5">
+        <form method="get" class="d-flex justify-content-center">
+            <div class="input-group w-50">
+                <input type="text" id="Query" name="searchParameters.Query" value="@Model.searchParameters.Query" class="form-control" placeholder="Search for a recipe..." />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Display Recipes Section -->
     @if (Model.Recipes != null && Model.Recipes.Any())
     {
-        <h3>Search Results</h3>
-        <ul>
-            @foreach (var recipe in Model.Recipes)
-            {
-                <li>
-                    <a asp-page ="/Recipe/RecipeDetails" asp-route-id="@recipe.Id">@recipe.Name</a>
-                </li>
-            }
-        </ul>
+        <div class="container">
+            <h3 class="my-4">Search Results</h3>
+            <div class="row">
+                @foreach (var recipe in Model.Recipes)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            @* <img src="@recipe." class="card-img-top" alt="@recipe.Name" style="height: 200px; object-fit: cover;" /> *@
+                            <div class="card-body">
+                                <h5 class="card-title">@recipe.Name</h5>
+                                @* <p class="card-text">@recipe.Description.Substring(0, Math.Min(100, recipe.Description.Length))...</p> *@
+                                <a asp-page="/Recipe/RecipeDetails" asp-route-id="@recipe.Id" class="btn btn-primary">View Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     }
     else if (Model.Recipes != null)
     {
-        <p>No results found.</p>
+        <div class="container">
+            <p class="text-muted">No results found. Try searching for different recipes.</p>
+        </div>
     }
 
+    @*     @if (Model.Recipes != null && Model.Recipes.Any())
+    {
+    <h3>Search Results</h3>
+    <ul>
+    @foreach (var recipe in Model.Recipes)
+    {
+    <li>
+    <a asp-page ="/Recipe/RecipeDetails" asp-route-id="@recipe.Id">@recipe.Name</a>
+    </li>
+    }
+    </ul>
+    }
+    else if (Model.Recipes != null)
+    {
+    <p>No results found.</p>
+    }
+    *@
 </div>
